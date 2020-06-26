@@ -1,6 +1,10 @@
 const express = require('express');
-const passport = require('passport');
-
+const {
+    checkEmail,
+    checkPassword,
+    checkErrors,
+    checkUserExists,
+} = require('../helpers/validators');
 const router = express.Router();
 
 /*
@@ -10,8 +14,10 @@ Signup Function:
     2. Find if User already exists
     3. Create a User with information + save User in DB
 */
-router.post('/signup', (req, res) => {
-    res.send('Signing Up.');
+router.post('/signup', [checkEmail(), checkPassword()], (req, res) => {
+    const { email, password } = req.body;
+    checkErrors(req, res);
+    checkUserExists();
 });
 
 /*
