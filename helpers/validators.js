@@ -10,23 +10,18 @@ const helpers = {
         }
     },
 
-    checkPassword: function (password) {
+    checkPassword: function () {
         console.log('checking password');
         return check('password', 'Please Try a New Password').isLength({
             min: 6,
         });
     },
 
-    checkEmail: function (email) {
+    checkEmail: function () {
         console.log('checking email');
         return check('email', 'Please Enter A Valid Email')
             .isEmail()
             .notEmpty();
-    },
-
-    checkUserExists: function (email) {
-        // 1. FindOne(User) --> Exists or Not
-        return 'checking if user exists';
     },
 };
 
