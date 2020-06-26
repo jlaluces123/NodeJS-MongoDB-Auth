@@ -15,7 +15,7 @@ router.post(
     (req, res) => {
         const { email, password } = req.body;
         validators.checkErrors(req, res);
-        databaseHelpers.checkUserExists();
+        databaseHelpers.checkUserExists(email);
     }
 );
 

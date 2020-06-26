@@ -4,12 +4,14 @@ const cors = require('cors');
 require('dotenv').config();
 
 // File Imports
-const { authRouter } = require('./api/routes');
+const { authRouter } = require('./api/index');
 
 // * Setup Configurations
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+// * Connect to MongoDB
 
 // * Routes:
 app.use('/api/auth', authRouter);
