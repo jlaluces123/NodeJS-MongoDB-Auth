@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const mongoose = require('mongoose');
 
 const databaseHelpers = {
     getAllUsers: function (res) {
@@ -24,7 +25,11 @@ const databaseHelpers = {
     },
 
     createUser: async function (email, password, res) {
-        let user = new User({ email, password });
+        let user = new User({
+            _id: mongoose.Types.ObjectId(),
+            email,
+            password,
+        });
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
