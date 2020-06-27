@@ -2,6 +2,10 @@ const express = require('express');
 const { validators, databaseHelpers } = require('../helpers/index');
 const router = express.Router();
 
+router.get('/users', (req, res) => {
+    databaseHelpers.getAllUsers(res);
+});
+
 /*
 Signup Function:
     [ @method: POST - @param: '/signup' ]
@@ -16,6 +20,7 @@ router.post(
         const { email, password } = req.body;
         validators.checkErrors(req, res);
         databaseHelpers.checkUserExists(email);
+        databaseHelpers.createUser(email, password, res);
     }
 );
 
