@@ -46,7 +46,7 @@ const databaseHelpers = {
             .catch((err) => res.status(500).send(err));
     },
 
-    comparePassword: async function (email, password, res) {
+    login: async function (email, password, res) {
         // 1. Bcrypt.compare
         // 2. Check if match
         let user = await User.findOne({ email });

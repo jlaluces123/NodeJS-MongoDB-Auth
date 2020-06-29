@@ -43,7 +43,7 @@ router.post(
         const { email, password } = req.body;
         validators.checkErrors(req, res);
         databaseHelpers.checkUserExists(email, res);
-        databaseHelpers.comparePassword(email, password, res);
+        databaseHelpers.login(email, password, res);
     }
 );
 
