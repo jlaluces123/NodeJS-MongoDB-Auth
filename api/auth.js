@@ -6,6 +6,10 @@ router.get('/users', (req, res) => {
     databaseHelpers.getAllUsers(res);
 });
 
+router.delete('/users/:userId', (req, res) => {
+    databaseHelpers.deleteUser(req.params.userId, res);
+});
+
 /*
 Signup Function:
     [ @method: POST - @param: '/signup' ]

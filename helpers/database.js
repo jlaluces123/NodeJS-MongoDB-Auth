@@ -29,12 +29,21 @@ const databaseHelpers = {
             _id: mongoose.Types.ObjectId(),
             email,
             password,
+            membership: 'none',
         });
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(password, salt);
 
         const newUser = await user.save();
         if (newUser === user) return res.status(201).send('User created');
+    },
+
+    deleteUser: async function (userId, res) {
+        const user = await userId;
+        User.remove({ _id: user })
+            .exec()
+            .then((response) => res.status(200).json(response))
+            .catch((err) => res.status(500).send(err));
     },
 
     comparePassword: async function (password) {

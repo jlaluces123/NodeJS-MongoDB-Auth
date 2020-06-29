@@ -10,6 +10,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    membership: {
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('User', userSchema);
