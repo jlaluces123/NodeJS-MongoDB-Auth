@@ -36,9 +36,16 @@ Login Function:
     3. Compare password
     4. Return message if wanted
 */
-router.post('/login', (req, res) => {
-    res.send('Login.');
-});
+router.post(
+    '/login',
+    [validators.checkEmail(), validators.checkPassword()],
+    (req, res) => {
+        const { email, password } = req.body;
+        validators.checkErrors(req, res);
+        databaseHelpers.checkUserExists(email, res);
+        databaseHelpers.comparePassword(email, password, res);
+    }
+);
 
 // Logout Function
 router.post('/logout', (req, res) => {

@@ -15,7 +15,7 @@ const databaseHelpers = {
         try {
             let user = await User.findOne({ email });
             if (user) {
-                return res.status(400).json({ msg: 'User already exists.' });
+                return;
             }
             return res.status(200).json({ msg: 'User does not exist yet.' });
         } catch (err) {
@@ -46,10 +46,18 @@ const databaseHelpers = {
             .catch((err) => res.status(500).send(err));
     },
 
-    comparePassword: async function (password) {
+    comparePassword: async function (email, password, res) {
         // 1. Bcrypt.compare
         // 2. Check if match
-        console.log('checking if passwords match');
+        let user = await User.findOne({ email });
+        const isMatch = await bcrypt.compare(password, user.password);
+        console.log('checking password');
+        if (!isMatch) {
+            res.status(400).json({
+                msg: 'We did not recognize the email and password combination',
+            });
+        }
+        return res.status(200).json({ msg: 'User log in successful.' });
     },
 };
 
